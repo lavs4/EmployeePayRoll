@@ -1,5 +1,8 @@
 package com.emppayroll.mappers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
 import com.emppayroll.dto.EmployeePayRollDTO;
@@ -18,6 +21,12 @@ public class EmployeePayRollMapper {
 		emp.setName(e.getName());
 		emp.setSalary(e.getSalary());
 		return emp;
+	}
+	public List<EmployeePayRollDTO> listOfDataToDto(List<EmployeePayRollModel > e){
+		return e.stream().map(x->dataToDto(x)).collect(Collectors.toList());
+	}
+	public List<EmployeePayRollModel> listOfDtoToData(List<EmployeePayRollDTO > e){
+		return e.stream().map(y->DtoToData(y)).collect(Collectors.toList());
 	}
 
 }

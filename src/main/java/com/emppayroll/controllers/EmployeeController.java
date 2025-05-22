@@ -8,26 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.emppayroll.dto.EmployeePayRollDTO;
-import com.emppayroll.mappers.EmployeePayRollMapper;
-import com.emppayroll.model.EmployeePayRollModel;
+import com.emppayroll.services.EmployeePayRollService;
 
 @RestController
 @RequestMapping("/employeepayservice")
 public class EmployeeController {
 	
 	@Autowired
-	private EmployeePayRollMapper epm;
+	private EmployeePayRollService eps;
 	
 	@GetMapping("/")
-	public String getEmployee(){
-		 EmployeePayRollModel e = new EmployeePayRollModel(1,"John",50000);
-		 EmployeePayRollDTO emp= epm.dataToDto(e);
-		 return "Name : " + emp.getName()+ " Salary : " + emp.getSalary();
+	public String getEmployeeData(){
+		return eps.getEmployee();
 	}
 	@PostMapping("/create")
-    public EmployeePayRollDTO createEmployee(@RequestBody EmployeePayRollDTO dto) {
-        EmployeePayRollDTO response = epm.dataToDto(epm.DtoToData(dto));
-        return response;
+    public EmployeePayRollDTO createNewEmployee(@RequestBody EmployeePayRollDTO dto) {
+        return eps.createEmployee(dto);
     }
 
 }
